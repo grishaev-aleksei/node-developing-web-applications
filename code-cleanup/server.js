@@ -1,9 +1,9 @@
 const http = require('http');
+const htmlCode = require('./../htmlCode');
 
 http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('<h1> some sort of sheet</h1>');
-    res.write('<p>this is wwwqwtfqc</p>');
+    res.write(htmlCode.getHtml());
     res.end();
 }).listen(3000);
 

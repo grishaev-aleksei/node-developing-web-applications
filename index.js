@@ -1,14 +1,17 @@
 const http = require('http');
 const fs = require('fs');
+const uc = require('upper-case');
 
 const helloWorld = 'hello world';
 const info = 'my name is Aleksei and this is my first app';
+const upInfo = info.toLocaleUpperCase();
 
-http.createServer(function (request, responce) {
-    responce.writeHead(200, {contentType:'text:html'});
-    responce.write('<h1>'+ helloWorld +'</h1>');
-    responce.write('<p>' +info + '</p>');
-    responce.end();
+http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write('<h1>'+ helloWorld +'</h1>');
+    res.write('<p>' +upInfo + '</p>');
+    res.write('<p>' +uc(info) + '</p>');
+    res.end();
 
 }).listen(3000);
 
