@@ -8,7 +8,7 @@ const upInfo = info.toLocaleUpperCase();
 
 http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('<h1>' + some text + '</h1>');
+    res.write('<h1>' + helloWorld + '</h1>');
     res.write('<p>' + upInfo + '</p>');
     res.write('<p>' + uc(info) + '</p>');
     res.end();
