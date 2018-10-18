@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const data = 'hello world message валейчума';
+const data = 'hello world message';
 
 fs.writeFile('hello-world.txt', data, 'utf8', (err) => {
     if (err) throw err;
