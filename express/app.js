@@ -1,5 +1,8 @@
 const express = require('express');
+const favicon = require('express-favicon');
+
 const app = express();
+
 
 const middlewareLogged = (req, res, next) => {
     console.log('middleware logged');
@@ -14,8 +17,12 @@ const printCounter = (req, res, next) => {
     next();
 };
 
+
 app.use(middlewareLogged);
 app.use(printCounter);
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
+
 
 app.get('/', (req, res) => {
     res.send('Hello world aka main page')
