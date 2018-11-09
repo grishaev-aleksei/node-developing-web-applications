@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseSave = require('./mongooseSave');
 
 mongoose.connect('mongodb://localhost:27017/myproject', {useNewUrlParser: true}).then(
     () => {
@@ -23,4 +24,5 @@ const listItem = new ShoppingList({
     item: 'apples',
     quantity: 40
 });
-console.log(listItem);
+
+mongooseSave.saveItem(listItem);
