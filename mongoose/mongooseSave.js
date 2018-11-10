@@ -7,5 +7,5 @@ const saveItem = (item) => {
 };
 
 
-module.exports = {saveItem};
+module.exports.saveItem = saveItem;
 

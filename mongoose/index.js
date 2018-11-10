@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const mongooseSave = require('./mongooseSave');
+const mongooseFind = require('./mongooseFind');
+const ShoppingList = require('./models/shoppingList');
 
 mongoose.connect('mongodb://localhost:27017/myproject', {useNewUrlParser: true}).then(
     () => {
@@ -9,20 +11,13 @@ mongoose.connect('mongodb://localhost:27017/myproject', {useNewUrlParser: true})
     }
 );
 
-const ShoppingListSchema = mongoose.Schema({
-    item: String,
-    quantity: Number,
-    date: {
-        type: Date,
-        default: Date.now
-    }
-});
-
-const ShoppingList = mongoose.model('ShoppingList', ShoppingListSchema);
-
 const listItem = new ShoppingList({
     item: 'apples',
-    quantity: 40
+    quantity: 33
 });
 
-mongooseSave.saveItem(listItem);
+// mongooseSave.saveItem(listItem);
+
+// mongooseFind.findAll();
+// mongooseFind.findItem(listItem.item);
+mongooseFind.findById('5be69c4139be7d036a9d5057');
