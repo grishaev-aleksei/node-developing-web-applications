@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>Display Page:</h1>
+<table>
+    <tr>
+        <th>Ticket</th>
+        <th>Date</th>
+    </tr>
+    {{#each data}}
+        <tr>
+            <td>{{this.issue}}</td>
+            <td>{{formatDate this.date}}</td>
+        </tr>
+    {{/each}}
+</table>
+</body>
+</html>
