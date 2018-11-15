@@ -7,3 +7,5 @@ mongoose.connect(url, { useNewUrlParser: true }).then(() => {
 }, (err) => {
     console.log(err)
 });
+
+module.exports = {mongoose};
