@@ -13,4 +13,15 @@ const showAll = (req, res) => {
 
 };
 
-module.exports = {showAll};
+const showOne = (req, res) => {
+    const id = req.params.id;
+    find.one(id).then((ticket) => {
+        res.render('ticket.hbs', {
+            data: ticket
+        })
+    }).catch((err) => {
+        res.status(400).send(err);
+    })
+};
+
+module.exports = {showAll, showOne};

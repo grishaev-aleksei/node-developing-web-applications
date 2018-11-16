@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Display page</title>
 </head>
 <body>
 <h1>Display Page:</h1>
+<form action="/display" method="post">
+    <input type="text" name="issue">
+    <input type="submit">
+</form>
+<br>
 <table>
     <tr>
         <th>Ticket</th>
@@ -18,5 +23,9 @@
         </tr>
     {{/each}}
 </table>
+<br>
+<form action="/deleteall?_method=delete" method="post">
+    <button type="submit">Delete All</button>
+</form>
 </body>
 </html>

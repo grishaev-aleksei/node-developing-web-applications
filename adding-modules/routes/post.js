@@ -9,7 +9,7 @@ const saveData = (req, res) => {
             res.status(400).send(docIssue);
         }
         console.log('issue saved successfully');
-        res.status(200).redirect('/')
+        res.status(200).redirect('/display')
     }).catch((err) => {
         res.status(400).send(err)
     })
