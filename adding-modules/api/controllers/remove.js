@@ -7,4 +7,10 @@ const removeAll = () => {
     })
 };
 
-module.exports = {removeAll};
+const removeOne = (id) => {
+    return Ticket.findOneAndDelete({_id: id}).then((result) => {
+        return result
+    })
+};
+
+module.exports = {removeAll, removeOne};

@@ -18,7 +18,7 @@
     </tr>
     {{#each data}}
         <tr>
-            <td>{{this.issue}}</td>
+            <td><a href="/ticket/{{this._id}}">{{this.issue}}</a></td>
             <td>{{formatDate this.date}}</td>
         </tr>
     {{/each}}

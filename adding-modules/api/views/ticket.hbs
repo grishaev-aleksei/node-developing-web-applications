@@ -9,5 +9,9 @@
 {{data.issue}}
 <br>
 {{formatDate data.date}}
+<br>
+<form action="/delete/{{data._id}}?_method=delete" method="post">
+    <button type="submit">Delete This</button>
+</form>
 </body>
 </html>

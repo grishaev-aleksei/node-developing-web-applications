@@ -15,9 +15,15 @@ const routes = (app) => {
 
     app.get('/display', get.showAll);
 
+    app.get('/', (req, res) => {
+        res.status(304).redirect('/display')
+    });
+
     app.get('/ticket/:id', get.showOne);
 
     app.delete('/deleteall', del.deleteAll);
+
+    app.delete('/delete/:id', del.deleteOne);
 };
 
 module.exports = {routes};

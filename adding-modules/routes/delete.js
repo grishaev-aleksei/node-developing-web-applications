@@ -13,4 +13,16 @@ const deleteAll = (req, res) => {
     });
 };
 
-module.exports = {deleteAll};
+const deleteOne = (req,res)=>{
+    const id = req.params.id;
+    remove.removeOne(id).then((result) => {
+        if (id !==result.id) {
+            res.status(400).send(result)
+        }
+        res.status(200).redirect('/display')
+    }).catch((err) => {
+        res.status(400).send(err)
+    });
+};
+
+module.exports = {deleteAll, deleteOne};
