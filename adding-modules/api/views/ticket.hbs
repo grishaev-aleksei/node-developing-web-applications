@@ -10,6 +10,11 @@
 <br>
 {{formatDate data.date}}
 <br>
+<form action="/update/{{data._id}}?_method=patch" method="post">
+    <input type="text" name="issue">
+    <input type="submit">
+</form>
+<br>
 <form action="/delete/{{data._id}}?_method=delete" method="post">
     <button type="submit">Delete This</button>
 </form>

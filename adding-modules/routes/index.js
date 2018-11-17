@@ -4,6 +4,7 @@ const ticket = require('./../api/models/ticket');
 const post = require('./post');
 const get = require('./get');
 const del = require('./delete');
+const patch = require('./patch');
 const bodyParser = require('body-parser');
 
 const routes = (app) => {
@@ -24,6 +25,8 @@ const routes = (app) => {
     app.delete('/deleteall', del.deleteAll);
 
     app.delete('/delete/:id', del.deleteOne);
+
+    app.patch('/update/:id', patch.updateData);
 };
 
 module.exports = {routes};
