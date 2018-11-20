@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcrypt');
 const passwordValidator = require('password-validator');
 const secPass = new passwordValidator();
 secPass
@@ -15,7 +16,7 @@ const userSchema = mongoose.Schema({
         type: String,
         require: true,
         minlength: 5,
-        unique: true,
+        // unique: true,
         validate: {
             validator: function (value) {
                 validator.isEmail(value)
@@ -35,8 +36,23 @@ const userSchema = mongoose.Schema({
     }
 });
 
+userSchema.pre('save', function (next) {
+    const user = this;
+    if (user.isModified('password')) {
+        bcrypt.genSalt((err, salt) => {
+            bcrypt.hash(user.password, salt, (err, hashPass) => {
+                    user.password = hashPass;
+                    next();
+                }
+            )
+        });
+    } else {
+        next();
+    }
+});
+
 //
-// const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 // const newUser = new User({
 //     email: 'so111me.mail@list.ru',
 //     password: 'wanamana1'

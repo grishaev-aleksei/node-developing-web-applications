@@ -23,12 +23,12 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    const newUser = new User({
+    const user = new User({
         email,
         password
     });
-    newUser.save().then(() => {
-        res.send(newUser)
+    user.save().then(() => {
+        res.send(user)
     }).catch((error) => {
         console.log(error)
     })
