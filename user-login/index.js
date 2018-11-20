@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
     res.status(200).send('home page')
 });
 
-app.post('/', (req, res) => {
+app.post('/signup', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const user = new User({
@@ -32,6 +32,18 @@ app.post('/', (req, res) => {
     }).catch((error) => {
         console.log(error)
     })
+});
+
+app.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+
+    User.confirmUserLogin(email, password).then((user) => {
+        res.send(user)
+    }).catch((err) => {
+        res.status(403).send(err)
+    });
 });
 
 app.listen(port, () => {

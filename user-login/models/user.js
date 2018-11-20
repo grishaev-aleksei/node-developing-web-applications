@@ -36,6 +36,28 @@ const userSchema = mongoose.Schema({
     }
 });
 
+userSchema.statics.confirmUserLogin = function (email, password) {
+    const user = this;
+    return user.findOne({
+       email
+    }).then((user)=>{
+        if (!user) {
+            return Promise.reject()
+        }
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(password, user.password, (err, result) => {
+                if (result) {
+                    resolve(user)
+                } else {
+                    reject(err)
+                }
+            });
+        });
+    });
+
+
+};
+
 userSchema.pre('save', function (next) {
     const user = this;
     if (user.isModified('password')) {
