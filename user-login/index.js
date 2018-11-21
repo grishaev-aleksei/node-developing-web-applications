@@ -16,6 +16,20 @@ mongoose.connect(url, {useNewUrlParser: true}).then(() => {
 
 app.use(bodyParser.urlencoded({extended: true}));
 
+const authenticate = (req, res, next) => {
+    const authToken = req.header('x-auth-token');
+    User.findAuthToken(authToken).then((user) => {
+        if (!user) {
+            return Promise.reject()
+        }
+        req.user = user;
+        req.authToken = authToken;
+        next();
+    }).catch((err) => {
+        console.log(err)
+    })
+};
+
 app.get('/', (req, res) => {
     res.status(200).send('home page')
 });
@@ -28,7 +42,7 @@ app.post('/signup', (req, res) => {
         password
     });
     user.save().then(() => {
-        user.generateAuthToken().then((token)=>{
+        user.generateAuthToken().then((token) => {
             res.header('x-auth-token', token).send(user)
         })
     }).catch((error) => {
@@ -46,6 +60,11 @@ app.post('/login', (req, res) => {
     }).catch((err) => {
         res.status(403).send(err)
     });
+});
+
+app.get('/me', authenticate, (req, res) => {
+    res.send(req.user)
+
 });
 
 app.listen(port, () => {

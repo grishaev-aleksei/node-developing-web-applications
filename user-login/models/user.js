@@ -79,6 +79,21 @@ userSchema.statics.confirmUserLogin = function (email, password) {
 
 };
 
+userSchema.statics.findAuthToken = function (authToken) {
+    const User = this;
+    let decodedAuthToken;
+    try {
+        decodedAuthToken = jwt.verify(authToken, 'secretKey')
+    } catch (err) {
+        console.log('jwt verify failed', err);
+        return Promise.reject()
+    }
+    return User.findOne({
+        _id: decodedAuthToken._id,
+        'authToken.token': authToken
+    })
+};
+
 userSchema.pre('save', function (next) {
     const user = this;
     if (user.isModified('password')) {
