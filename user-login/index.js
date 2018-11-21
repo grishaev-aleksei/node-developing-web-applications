@@ -28,9 +28,11 @@ app.post('/signup', (req, res) => {
         password
     });
     user.save().then(() => {
-        res.send(user)
+        user.generateAuthToken().then((token)=>{
+            res.header('x-auth-token', token).send(user)
+        })
     }).catch((error) => {
-        console.log(error)
+        res.status(400).send(error)
     })
 });
 

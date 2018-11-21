@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator');
 const secPass = new passwordValidator();
 secPass
@@ -33,14 +34,34 @@ const userSchema = mongoose.Schema({
             },
             message: props => `${props.value} is not secure!`
         }
+    },
+    authToken: {
+        token: {
+            type: String,
+            require: true
+        }
     }
 });
+
+userSchema.methods.generateAuthToken = function () {
+    const user = this;
+    const token = jwt.sign({
+            _id: user._id.toHexString()
+        },
+        'secretKey'
+    ).toString();
+    user.authToken = {token};
+
+    return user.save().then(() => {
+        return token
+    })
+};
 
 userSchema.statics.confirmUserLogin = function (email, password) {
     const user = this;
     return user.findOne({
-       email
-    }).then((user)=>{
+        email
+    }).then((user) => {
         if (!user) {
             return Promise.reject()
         }
